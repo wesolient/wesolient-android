@@ -1,0 +1,45 @@
+<resources>
+    <string name="gcp_id">754183102343-3t5qvmj5302ij4agd5lep355pcrnf2v2.apps.googleusercontent.com</string>
+
+    <!--    COMMON    -->
+    <string name="app_name">Wesolient</string>
+    <string name="app_head_name">@string/app_name</string>
+
+    <string name="unknown_error">Something went wrong</string>
+
+    <string name="scope_title_hint">E.g. Awesome project</string>
+    <string name="scope_url_hint">wss://awesome.project.io</string>
+
+    <string name="compose_key_hint">E.g. greeting</string>
+    <string name="compose_value_hint">Hello, @{userName}!</string>
+
+    <string name="create">Create</string>
+    <string name="apply">Apply</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
+
+
+    <!--    SCOPE SELECT COMPOSE    -->
+    <string name="scope_list_placeholder">Scope list is empty.\nMaybe you should to add one?</string>
+
+
+    <!--    SCOPE COMPOSE    -->
+    <string name="connection_opening">Opening</string>
+    <string name="connection_opened">Connected</string>
+    <string name="connection_closing">Closing</string>
+    <string name="connection_closed">Closed</string>
+    <string name="connection_failed">Failed</string>
+
+    <string name="message_input_hint">Type message here…</string>
+
+    <string name="empty_template_or_variable_list_placeholder">To create a new one, expand the list completely by swiping up.</string>
+
+    <string name="used_reserved_code_error">Codes 1004..1006, 1012..2999 are reserved and may not be used</string>
+
+    <string name="miss_scope">Can\'t find this scope</string>
+
+
+    <!--    SETTINGS    -->
+    <string name="settings_header">Settings</string>
+    <string name="retry_on_connection_failure">Retry on connection failure?</string>
+</resources>

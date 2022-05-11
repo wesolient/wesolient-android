@@ -1,0 +1,16 @@
+<resources>
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:colorPrimary">@color/colorPrimary</item>
+        <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:colorAccent">@color/colorAccent</item>
+        <item name="android:statusBarColor">@color/colorBackground</item>
+        <item name="android:windowLightStatusBar">@bool/lightStatusBar</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+        <item name="android:windowIsFloating">false</item>
+    </style>
+
+    <style name="SplashTheme" parent="AppTheme">
+        <item name="android:background">@drawable/splash</item>
+        <item name="android:statusBarColor">@color/colorBackground</item>
+    </style>
+</resources>
