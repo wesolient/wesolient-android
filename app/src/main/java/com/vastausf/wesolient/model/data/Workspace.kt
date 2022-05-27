@@ -6,7 +6,7 @@ import java.util.*
 
 @Entity
 data class Workspace(
-    @PrimaryKey var uid: String = UUID.randomUUID().toString(),
+    @PrimaryKey(autoGenerate = true) var id: Long = 0,
     var title: String,
     var link: String
 )

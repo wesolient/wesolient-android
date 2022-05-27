@@ -1,6 +1,5 @@
 package com.vastausf.wesolient.presentation.ui.screen
 
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -10,7 +9,6 @@ import androidx.compose.material.Divider
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.vastausf.wesolient.LocalWesolientDatabase
@@ -21,14 +19,10 @@ import com.vastausf.wesolient.newWebsocket
 import com.vastausf.wesolient.nowInMillis
 import com.vastausf.wesolient.presentation.design.token.WesolientTheme.colors
 import com.vastausf.wesolient.presentation.design.token.WesolientTheme.icons
-import com.vastausf.wesolient.presentation.design.widget.PreloadPlaceholder
-import com.vastausf.wesolient.presentation.design.widget.TransparentTextField
-import com.vastausf.wesolient.presentation.design.widget.WesolientIconButton
-import com.vastausf.wesolient.presentation.design.widget.WesolientProgress
+import com.vastausf.wesolient.presentation.design.widget.*
 import com.vastausf.wesolient.presentation.design.widget.message.ClientMessageWidget
 import com.vastausf.wesolient.presentation.design.widget.message.ServerMessageWidget
 import com.vastausf.wesolient.presentation.design.widget.message.SystemMessageWidget
-import com.vastausf.wesolient.presentation.design.widget.text.HeaderText
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
@@ -39,11 +33,11 @@ import okhttp3.WebSocketListener
 @Composable
 fun WorkspaceScreenPreload(
     navController: NavController,
-    uid: String
+    workspaceId: String
 ) {
     val database = LocalWesolientDatabase.current
 
-    val workspace by database.workspaceDao().getByUid(uid).collectAsState(null)
+    val workspace by database.workspaceDao().getById(workspaceId).collectAsState(null)
 
     if (workspace != null) {
         WorkspaceScreen(navController, workspace!!)
@@ -57,8 +51,6 @@ private fun WorkspaceScreen(
     navController: NavController,
     workspace: Workspace
 ) {
-    val context = LocalContext.current
-
     val coroutineScope = rememberCoroutineScope()
 
     val messagesListState = rememberLazyListState()
@@ -104,54 +96,45 @@ private fun WorkspaceScreen(
         modifier = Modifier
             .fillMaxSize()
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(48.dp)
-        ) {
-            WesolientIconButton(
-                imageVector = icons.back
-            ) {
+        WesolientHeader(
+            title = workspace.title,
+            onBackPressed = {
                 navController.popBackStack(Navigation.MAIN.path, false)
-            }
+            },
+            secondaryAction = {
+                ConnectionSwitcher(
+                    connectionState = connectionState,
+                    onDisconnectClick = {
+                        connectionState = ConnectionState.DISCONNECTING
 
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .weight(1f),
-                contentAlignment = Alignment.Center
-            ) {
-                HeaderText(text = workspace.title)
-            }
+                        webSocket?.close(WebSocketClosureCode.NORMAL.code, null)
+                    },
+                    onConnectClick = {
+                        coroutineScope.launch(Dispatchers.IO) {
+                            connectionState = ConnectionState.CONNECTING
 
-            ConnectionSwitcher(
-                connectionState = connectionState,
-                onDisconnectClick = {
-                    connectionState = ConnectionState.DISCONNECTING
+                            val okHttpClient = OkHttpClient()
 
-                    webSocket?.close(WebSocketClosureCode.NORMAL.code, null)
-                },
-                onConnectClick = {
-                    coroutineScope.launch(Dispatchers.IO) {
-                        connectionState = ConnectionState.CONNECTING
+                            try {
+                                webSocket = okHttpClient.newWebsocket(workspace.link, listener)
+                            } catch (e: Exception) {
+                                connectionState = ConnectionState.FAILED
 
-                        val okHttpClient = OkHttpClient()
-
-                        try {
-                            webSocket = okHttpClient.newWebsocket(workspace.link, listener)
-                        } catch (e: Exception) {
-                            connectionState = ConnectionState.FAILED
-
-                            messages += SystemMessage("Invalid link", nowInMillis)
+                                messages += SystemMessage("Invalid link", nowInMillis)
+                            }
                         }
                     }
-                }
-            )
+                )
+            }
+        ) {
+            WesolientIconButton(
+                imageVector = icons.settings
+            ) {
+                navController.navigate("${Navigation.WORKSPACE_SETTINGS.path}/${workspace.id}")
+            }
         }
 
-        Divider(
-            color = colors.divider
-        )
+        WesolientDivider()
 
         LaunchedEffect(messages) {
             coroutineScope.launch {
@@ -270,9 +253,7 @@ private fun BottomBar(
             .height(56.dp)
             .background(colors.background)
     ) {
-        Divider(
-            color = colors.divider
-        )
+        WesolientDivider()
 
         Row(
             verticalAlignment = Alignment.CenterVertically,

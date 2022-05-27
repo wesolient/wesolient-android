@@ -17,6 +17,7 @@ import com.vastausf.wesolient.LocalWesolientDatabase
 import com.vastausf.wesolient.Navigation
 import com.vastausf.wesolient.model.WesolientDatabase
 import com.vastausf.wesolient.presentation.design.token.WesolientTheme
+import com.vastausf.wesolient.presentation.ui.screen.WorkspaceSettingsPreload
 import com.vastausf.wesolient.presentation.ui.screen.MainScreen
 import com.vastausf.wesolient.presentation.ui.screen.WorkspaceScreenPreload
 
@@ -50,16 +51,28 @@ class MainActivity : AppCompatActivity() {
                 MainScreen(navController)
             }
 
-            composable("${Navigation.WORKSPACE.path}/{uid}") { backStackEntry ->
-                val uid = backStackEntry.arguments?.getString("uid")
+            composable("${Navigation.WORKSPACE.path}/{id}") { backStackEntry ->
+                val workspaceId = backStackEntry.arguments?.getString("id")
 
-                if (uid == null) {
+                if (workspaceId == null) {
                     navController.navigate(Navigation.MAIN.path)
 
                     return@composable
                 }
 
-                WorkspaceScreenPreload(navController, uid)
+                WorkspaceScreenPreload(navController, workspaceId)
+            }
+
+            composable("${Navigation.WORKSPACE_SETTINGS.path}/{id}") { backStackEntry ->
+                val workspaceId = backStackEntry.arguments?.getString("id")
+
+                if (workspaceId == null) {
+                    navController.navigate(Navigation.MAIN.path)
+
+                    return@composable
+                }
+
+                WorkspaceSettingsPreload(navController, workspaceId)
             }
         }
     }

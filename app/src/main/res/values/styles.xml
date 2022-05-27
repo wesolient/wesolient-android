@@ -6,7 +6,6 @@
         <item name="android:statusBarColor">@color/colorStatusBar</item>
         <item name="android:windowLightStatusBar">@bool/lightStatusBar</item>
         <item name="android:windowSoftInputMode">adjustResize</item>
-        <item name="android:background">@color/colorStatusBar</item>
 
         <item name="android:windowSplashScreenBackground" tools:targetApi="s">@color/colorStatusBar</item>
         <item name="android:windowSplashScreenAnimatedIcon" tools:targetApi="s">@drawable/splash_icon</item>

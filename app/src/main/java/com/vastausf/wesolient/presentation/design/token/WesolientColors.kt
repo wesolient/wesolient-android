@@ -15,7 +15,7 @@ class WesolientColors(
     val background: Color,
     val dialogScrim: Color,
     val outline: Color,
-    val divider: Color,
+    val caution: Color,
     val clientMessage: Color,
     val serverMessage: Color,
 ) {
@@ -27,7 +27,7 @@ class WesolientColors(
         background,
         dialogScrim,
         outline,
-        divider,
+        caution,
         clientMessage,
         serverMessage
     )

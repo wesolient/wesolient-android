@@ -1,6 +1,5 @@
 package com.vastausf.wesolient.presentation.ui.screen
 
-import androidx.compose.foundation.layout.*
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.rememberModalBottomSheetState
@@ -8,20 +7,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.vastausf.wesolient.LocalWesolientDatabase
 import com.vastausf.wesolient.Navigation
 import com.vastausf.wesolient.R
 import com.vastausf.wesolient.model.data.Workspace
 import com.vastausf.wesolient.presentation.design.widget.*
-import com.vastausf.wesolient.presentation.design.widget.text.HeaderText
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -61,7 +55,10 @@ fun MainScreen(
         content = {
             WesolientScaffold(
                 header = {
-                    Header()
+                    WesolientHeader(
+                        title = "Wesolient",
+                        icon = painterResource(R.drawable.ic_app)
+                    )
                 },
                 floatingActionButton = {
                     WesolientFloatingActionButton {
@@ -75,36 +72,13 @@ fun MainScreen(
                         items = workspaceItems,
                         createTitle = { it.title },
                         onClick = { workspace ->
-                            navController.navigate("${Navigation.WORKSPACE.path}/${workspace.uid}")
+                            navController.navigate("${Navigation.WORKSPACE.path}/${workspace.id}")
                         }
                     )
                 }
             )
         }
     )
-}
-
-@Composable
-private fun Header() {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(64.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center
-    ) {
-
-        WesolientIcon(
-            modifier = Modifier
-                .size(32.dp),
-            painter = painterResource(R.drawable.ic_app),
-            tint = Color.Unspecified
-        )
-
-        HeaderText(
-            text = "Wesolient"
-        )
-    }
 }
 
 @Composable

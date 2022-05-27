@@ -13,9 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.vastausf.wesolient.PREVIEW_BACKGROUND_DAY
 import com.vastausf.wesolient.PREVIEW_BACKGROUND_NIGHT
 import com.vastausf.wesolient.model.data.Workspace
-import com.vastausf.wesolient.network.SystemMessage
 import com.vastausf.wesolient.presentation.design.token.WesolientTheme
-import com.vastausf.wesolient.presentation.design.widget.message.SystemMessageWidget
 
 @Composable
 fun <T> WesolientList(

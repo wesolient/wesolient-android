@@ -19,7 +19,7 @@ import com.vastausf.wesolient.PREVIEW_BACKGROUND_NIGHT
 import com.vastausf.wesolient.presentation.design.token.WesolientTheme
 import com.vastausf.wesolient.presentation.design.widget.text.TitleText
 
-@OptIn(ExperimentalMaterialApi::class, ExperimentalFoundationApi::class)
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ListItem(
     modifier: Modifier = Modifier,

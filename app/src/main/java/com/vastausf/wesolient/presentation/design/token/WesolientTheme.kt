@@ -56,7 +56,7 @@ fun WesolientTheme(
             background = Color(0xFF202227),
             dialogScrim = Color(0xB0202227),
             outline = Color(0xFF2B2E33),
-            divider = Color(0xFF2B2E33),
+            caution = Color(0xFFF44336),
             clientMessage = Color(0xFF353942),
             serverMessage = Color(0xFF2A2D33)
         )
@@ -68,8 +68,8 @@ fun WesolientTheme(
             contentGhost = Color(0xFFB1B2C0),
             background = Color(0xFFFFFFFF),
             dialogScrim = Color(0xB0FFFFFF),
-            outline = Color(0x00FFFFFF),
-            divider = Color(0xFFFBFBFF),
+            outline = Color(0xFFFBFBFF),
+            caution = Color(0xFFF44336),
             clientMessage = Color(0xFFFFD6D4),
             serverMessage = Color(0xFFF5F5F7)
         )
@@ -131,12 +131,13 @@ fun WesolientTheme(
     val icons = WesolientIcons(
         plus = Icons.Rounded.Add,
         back = Icons.Rounded.ArrowBack,
-        remove = Icons.Rounded.Clear,
+        remove = Icons.Rounded.Delete,
         connect = Icons.Rounded.Link,
         disconnect = Icons.Rounded.LinkOff,
         send = Icons.Rounded.Send,
         templates = Icons.Rounded.AlternateEmail,
-        settings = Icons.Rounded.Settings
+        settings = Icons.Rounded.Settings,
+        check = Icons.Rounded.Check
     )
 
     CompositionLocalProvider(

@@ -15,7 +15,8 @@ data class WesolientIcons(
     val disconnect: ImageVector,
     val send: ImageVector,
     val templates: ImageVector,
-    val settings: ImageVector
+    val settings: ImageVector,
+    val check: ImageVector
 ) {
     fun all(): List<ImageVector> = listOf(
         plus,
@@ -25,6 +26,7 @@ data class WesolientIcons(
         disconnect,
         send,
         templates,
-        settings
+        settings,
+        check
     )
 }
